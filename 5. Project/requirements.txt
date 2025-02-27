@@ -1,5 +1,24 @@
-alembic==1.11.1
-asyncpg==0.28.0
-fastapi==0.100.0
-sqlmodel==0.0.8
-uvicorn==0.22.0
+# FastAPI Framework
+fastapi[all]
+
+# ASGI Server for running FastAPI
+uvicorn[standard]
+
+# Database Libraries
+sqlalchemy
+alembic  # Database migrations
+pymysql  # MySQL driver
+psycopg2-binary  # PostgreSQL driver (if needed)
+pyodbc  # SQL Server driver (if needed)
+
+# Pydantic for Data Validation
+pydantic
+pydantic-settings  # Configuration management
+
+# Authentication & Security
+passlib[bcrypt]  # Password hashing
+pyjwt  # JSON Web Token for authentication
+cryptography  # Required for MySQL auth methods
+
+# Environment Variables Management
+python-dotenv
