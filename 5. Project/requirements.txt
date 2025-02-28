@@ -8,8 +8,8 @@ uvicorn[standard]
 sqlalchemy
 alembic  # Database migrations
 pymysql  # MySQL driver
-psycopg2-binary  # PostgreSQL driver (if needed)
-pyodbc  # SQL Server driver (if needed)
+# psycopg2-binary  # PostgreSQL driver
+# pyodbc  # SQL Server driver
 
 # Pydantic for Data Validation
 pydantic
