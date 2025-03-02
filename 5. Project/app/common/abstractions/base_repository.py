@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session, Query
 from typing import Generic, TypeVar, Type, Tuple, Any
 from app.db.database import Base
 from math import ceil
-from common.shared.constants.app_constant import AppConstants
+from app.common.shared.constants.app_constant import AppConstants
 
 T = TypeVar("T", bound=Base)
 
@@ -31,12 +31,11 @@ class BaseRepository(Generic[T]):
             "data": results
         }
     
-    def create(self, db_data: dict) -> T:
-        db_obj = self.model(**db_data)
-        self.db.add(db_obj)
+    def add(self, db_data) -> T:
+        self.db.add(db_data)
         self.db.commit()
-        self.db.refresh(db_obj)
-        return db_obj
+        self.db.refresh(db_data)
+        return db_data
     
     def update(self, db_obj: T, update_data: dict) -> T:
         for key, value in update_data.items():
@@ -55,3 +54,6 @@ class BaseRepository(Generic[T]):
         
     def execute(self, query: Select[Tuple[Any, ...]]):
         return self.db.execute(query)
+    
+    def execute_scalar_one_or_none(self, query: Select[Tuple[Any, ...]]):
+        return self.db.execute(query).scalar_one_or_none()
