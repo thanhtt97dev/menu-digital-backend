@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.repositories.role_repository import RoleRepository
-from app.schemas.role import RoleCreate, RoleResponse
+from app.schemas.role_schema import RoleCreate, RoleResponse
 
 class RoleService:
     

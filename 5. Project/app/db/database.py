@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from app.core.config import settings
+from app.common.Shared.Configurations.enviroment_config import settings
 
 # make engine connect with MySql
 engine = create_engine(settings.DATABASE_URL)

@@ -1,9 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from app.db.database import engine, Base
-from app.core.routers_config import include_routers
-
-app = FastAPI()
+from app.common.Shared.Configurations.routers_config import include_routers
 
 app = FastAPI()
 
