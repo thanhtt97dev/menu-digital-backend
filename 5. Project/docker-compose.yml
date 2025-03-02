@@ -13,7 +13,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./mysql_data:/var/lib/mysql  #
     networks:
       - my_network
 
@@ -22,6 +22,3 @@ volumes:
 
 networks:
   my_network:
-
-# run command
-# docker-compose -p mechat-backend-python up -d
