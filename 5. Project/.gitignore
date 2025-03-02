@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+
+# Virtual Environment
+venv/
+
+# Database & Migrations
+*.sqlite3
+alembic/versions/*.pyc
+alembic/versions/*.py~
+migrations/
+
+# Ignore MySQL volume data
+mysql_data/
+
+# VS Code
+.vscode/
+
+# Dependencies
+*.egg-info/
+dist/
+build/
