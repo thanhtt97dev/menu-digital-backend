@@ -18,8 +18,20 @@ if __name__ == '__main__':
     
 
 #Note: run command
-# Docker: docker-compose up -d
-# Alembic: 
+# 1. Create a Virtual Enviroment:
+#   python -m venv venv
+#
+# 2. Install libs
+#   pip install -r requirements.txt
+#
+# 3. Docker:
+#   docker-compose up -d
+#
+# 4. Migration database with Alembic: 
+# 4.1. Add new migration:
 #   alembic revision --autogenerate -m "message"
-#   alembic upgrade head
-# Run app: uvicorn main:app --reload
+# 4.2. Update database  
+#   alembic upgrade head:
+# 
+# 5. Run app:
+#   uvicorn main:app --reload
