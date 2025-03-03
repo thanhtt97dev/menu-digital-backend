@@ -26,3 +26,4 @@ mysql_data/
 *.egg-info/
 dist/
 build/
+
