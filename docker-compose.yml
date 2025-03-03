@@ -6,8 +6,8 @@ services:
     container_name: mysql_container
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: sa
-      MYSQL_DATABASE: mechat
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: menu-digital
       MYSQL_USER: sa
       MYSQL_PASSWORD: sa
     ports:

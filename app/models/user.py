@@ -8,8 +8,8 @@ class User(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(50), unique=True, nullable=False)
-    hashed_password = Column(String(255), nullable=False)
-    email = Column(String(100), unique=True, nullable=False)
+    password = Column(String(255), nullable=True)
+    fullname = Column(String(100), nullable=False)
     role_id = Column(Integer, ForeignKey("roles.id"))
     
     role = relationship("Role", back_populates="users")

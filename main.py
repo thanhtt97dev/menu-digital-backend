@@ -28,10 +28,13 @@ if __name__ == '__main__':
 #   docker-compose up -d
 #
 # 4. Migration database with Alembic: 
-# 4.1. Add new migration:
+# 4.1. Update [sqlalchemy.url] in [alembic.ini]:
+#   sqlalchemy.url = mysql+pymysql://root:sa@localhost:3306/menu-digital
+# 4.2. Add new empty database
+# 4.2. Add new migration:
 #   alembic revision --autogenerate -m "message"
-# 4.2. Update database  
-#   alembic upgrade head:
+# 4.3. Update database  
+#   alembic upgrade head
 # 
 # 5. Run app:
 #   uvicorn main:app --reload
