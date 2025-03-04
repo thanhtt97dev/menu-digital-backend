@@ -1,6 +1,9 @@
 from sqlalchemy.orm import Session
+
 from app.repositories.role_repository import RoleRepository
 from app.schemas.role_schema import RoleCreate, RoleResponse
+from app.common.shared.responses.base_response import BaseResponse
+from app.common.shared.responses.response import Response
 
 class RoleService:
     
@@ -15,4 +18,5 @@ class RoleService:
     
     @staticmethod
     def get_all_roles(db: Session):
-        return RoleRepository.get_all_roles(db)
+        data = RoleRepository.get_all_roles(db)
+        return Response.success(data)

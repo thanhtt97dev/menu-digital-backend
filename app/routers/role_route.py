@@ -13,6 +13,6 @@ def create_role(role_data: RoleCreate, db: Session = Depends(get_db)):
     except Exception as ex:
         raise HTTPException(status_code=400, detail=str(ex))
     
-@router.get('/', response_model=list[RoleResponse])
+@router.get('/')
 def get_all_roles(db:Session = Depends(get_db)):
     return RoleService.get_all_roles(db)
