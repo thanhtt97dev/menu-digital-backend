@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: menu-digital
+      MYSQL_DATABASE: menu_digital
       MYSQL_USER: sa
       MYSQL_PASSWORD: sa
     ports:
