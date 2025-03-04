@@ -1,33 +1,35 @@
-from typing import Generic, TypeVar, Type, Tuple, Any
-
 from app.common.shared.constants.app_constant import AppConstants
 
 class BaseResponse:
 
-    def __init__(self, code: str, message: str):
+    def __init__(self, code: str, message: str | None):
         self.code = code
         self.message = message
 
     @staticmethod
-    def success():
-        return BaseResponse(AppConstants.ResponseCode.SUCCESS, "Success!")
+    def success(message: str = "Success!"):
+        return BaseResponse(AppConstants.ResponseCode.SUCCESS, message)
     
     @staticmethod    
-    def failure():
-        return BaseResponse(AppConstants.ResponseCode.FAILURE, "Failure!")
+    def failure(message: str = "Failure!"):
+        return BaseResponse(AppConstants.ResponseCode.FAILURE, message)
     
     @staticmethod
-    def not_found():
-        return BaseResponse(AppConstants.ResponseCode.NOT_FOUND, "Not Found!")
+    def not_found(message: str = "Not Found!"):
+        return BaseResponse(AppConstants.ResponseCode.NOT_FOUND, message)
+
+    @staticmethod
+    def validation_error(message: str = "Validation error!"):
+        return BaseResponse(AppConstants.ResponseCode.VALIDATION_ERROR, message)
     
     @staticmethod
-    def validation_error():
-        return BaseResponse(AppConstants.ResponseCode.VALIDATION_ERROR, "Validation error!")
+    def un_authorized(message: str = "Un authorized!"):
+        return BaseResponse(AppConstants.ResponseCode.UN_AUTHORIZED, message)
     
     @staticmethod
-    def un_authorized():
-        return BaseResponse(AppConstants.ResponseCode.UN_AUTHORIZED, "Un authorized!")
+    def un_authentication(message: str = "Un authentication!"):
+        return BaseResponse(AppConstants.ResponseCode.UN_AUTHENTICATION, message)
     
     @staticmethod
-    def un_authentication():
-        return BaseResponse(AppConstants.ResponseCode.UN_AUTHENTICATION, "Un authentication!")
+    def initialization(code: str, message: str | None):
+        return BaseResponse(code, message)
