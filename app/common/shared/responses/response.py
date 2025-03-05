@@ -15,7 +15,7 @@ class Response(Generic[T]):
             self.error = error
 
     @staticmethod
-    def success(message: str = "Success!", data: T | None = None):
+    def success(data: T | None = None, message: str = "Success!"):
         return Response(AppConstants.ResponseCode.SUCCESS, message, data)
     
     @staticmethod    
