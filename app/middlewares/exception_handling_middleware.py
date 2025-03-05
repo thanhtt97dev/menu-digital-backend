@@ -10,8 +10,6 @@ from app.common.shared.exceptions.base.domain_exception import DomainException
 class ExceptionHandlingMiddleware(BaseHTTPMiddleware):
     
     async def dispatch(self, request, call_next):
-        x = BaseResponse.failure().__dict__
-        print(x)
         try:
             return await call_next(request)
         except Exception as ex:
@@ -22,7 +20,7 @@ class ExceptionHandlingMiddleware(BaseHTTPMiddleware):
             )
 
     @staticmethod
-    def get_response_exception(self, exception: Exception) -> Tuple[int, dict]:
+    def get_response_exception(exception: Exception) -> Tuple[int, dict]:
         match exception:
             case BadRequestException():
                 return status.HTTP_400_BAD_REQUEST, BaseResponse.failure(exception.message).__dict__
