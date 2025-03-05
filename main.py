@@ -1,20 +1,23 @@
 import uvicorn
 from fastapi import FastAPI
-from app.db.database import engine, Base
+
 from app.common.shared.configurations.routers_config import include_routers
+from app.common.shared.configurations.middlewares_config import include_middlewares
 
 app = FastAPI()
 
-# regist routers
-include_routers(app=app)
+# include routers
+include_routers(app)
 
+# include middlewares
+include_middlewares(app)
 
 @app.on_event("startup")
 async def on_startup():
     pass
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host='0.0.0.0', port=8888)
     
 
 #Note: run command

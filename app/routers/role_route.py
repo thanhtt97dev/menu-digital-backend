@@ -15,4 +15,5 @@ def create_role(role_data: RoleCreate, db: Session = Depends(get_db)):
     
 @router.get('/')
 def get_all_roles(db:Session = Depends(get_db)):
+    raise Exception('dwa','dawdwa')
     return RoleService.get_all_roles(db)
