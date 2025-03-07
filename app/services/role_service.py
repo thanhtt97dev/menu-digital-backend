@@ -12,7 +12,7 @@ class RoleService:
     def create_role(db: Session, role_data: RoleCreate) -> RoleResponse:
         is_existed_role = RoleRepository.get_role_by_name(db, role_data.name)
         if is_existed_role:
-            raise BadRequestException(title='Role Already Exists', message=f"The role '{role_data.name}' is already taken. Please choose a different name.")
+            raise BadRequestException(title='Role Already Exists', content=f"The role '{role_data.name}' is already taken. Please choose a different name.")
         
         new_role = RoleRepository.create_role(db, role_data)
         data = RoleResponse.from_orm(new_role)
