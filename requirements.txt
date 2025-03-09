@@ -22,3 +22,7 @@ cryptography  # Required for MySQL auth methods
 
 # Environment Variables Management
 python-dotenv
+
+
+# send mail
+fastapi-mail

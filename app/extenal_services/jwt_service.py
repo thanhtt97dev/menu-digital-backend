@@ -8,9 +8,9 @@ from app.common.shared.exceptions.base.un_authentication_exception import UnAuth
 
 class JwtService(JwtServiceInterface):
     
-    def generate_token(self, palyload: dict, secret: str = settings.JWT_ISSUER_SIGNING_KEY, expires_in: int = settings.JWT_EXPIRE_MINUTES, algorithm: str = 'HS256'):
-        data = palyload.copy()
-        expire = datetime.utcnow + timedelta(minutes=expires_in)
+    def generate_token(self, payload: dict, secret: str = settings.JWT_ISSUER_SIGNING_KEY, expires_in: int = settings.JWT_EXPIRE_MINUTES, algorithm: str = 'HS256'):
+        data = payload.copy()
+        expire = datetime.utcnow() + timedelta(minutes=expires_in)
         data.update({"exp": expire})
         return jwt.encode(data, secret, algorithm)
     
