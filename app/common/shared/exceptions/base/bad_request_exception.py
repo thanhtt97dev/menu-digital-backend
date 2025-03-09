@@ -1,7 +1,7 @@
 from app.common.shared.exceptions.base.domain_exception import DomainException
 
 class BadRequestException(DomainException):
-    def __init__(self, title, message):
-        super().__init__(title, message)
+    def __init__(self, title, content):
+        super().__init__(title, content)
         self.title = title
-        self.message = message
+        self.content = content
