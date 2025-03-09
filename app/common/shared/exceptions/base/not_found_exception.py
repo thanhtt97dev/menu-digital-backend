@@ -4,5 +4,5 @@ class NotFoundException(DomainException):
 
     def __init__(self, title, content):
         super().__init__(title, content)
-        self.title = title,
+        self.title = title
         self.content = content
