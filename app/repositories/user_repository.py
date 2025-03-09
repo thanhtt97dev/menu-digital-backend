@@ -4,7 +4,7 @@ from app.models.role import Role
 from app.schemas.role_schema import RoleCreate
 
 
-from app.common.abstractions.base_repository import BaseRepository
+from app.common.base.base_repository import BaseRepository
 from app.models.user import User
 class UserRepository(BaseRepository[User]):
     
