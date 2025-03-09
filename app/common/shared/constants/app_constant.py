@@ -17,4 +17,19 @@ class AppConstants:
         VALIDATION_ERROR: str = '0003'
         UN_AUTHORIZED: str = '0004'
         UN_AUTHENTICATION: str = '0005'
+        
+    @dataclass(frozen=True)
+    class User:
+        @dataclass(frozen=True)
+        class Status:
+            UnActivate = -1
+            Deactivate = 0
+            Activate = 1
+            
+    @dataclass(frozen=True)
+    class Role:
+       Admin = 1
+       Shop_Admin = 2
+       Employee = 3
+       Customer = 4
 

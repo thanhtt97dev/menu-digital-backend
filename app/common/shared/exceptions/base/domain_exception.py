@@ -1,7 +1,6 @@
-
 class DomainException(Exception):
-
-    def __init__(self, title, message):
-        super().__init__(message)
-        self.title = title
-        self.message = message
+    def __init__(self, title: str, content: str):
+        super().__init__(content)
+        if title is not None:
+            self.title = title
+        self.content = content

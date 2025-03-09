@@ -5,7 +5,7 @@ class BaseResponse:
     def __init__(self, code: str, message: str | None):
         self.code = code
         self.message = message
-
+        
     @staticmethod
     def success(message: str = "Success!"):
         return BaseResponse(AppConstants.ResponseCode.SUCCESS, message)
