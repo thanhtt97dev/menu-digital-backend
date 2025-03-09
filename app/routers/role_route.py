@@ -4,10 +4,13 @@ from app.db.database import get_db
 from app.services.role_service import RoleService
 from app.schemas.role_schema import  RoleCreate, RoleResponse
 
+from app.common.base.authorize import authorize
+from app.common.shared.constants.app_constant import AppConstants
+
 router = APIRouter(prefix="/roles", tags=["Roles"])
 
-@router.post("/", response_model= RoleResponse)
-def create_role(role_data: RoleCreate, db: Session = Depends(get_db)):
+@router.post("", response_model= RoleResponse)
+def create_role(role_data: RoleCreate, db: Session = Depends(get_db), user = Depends(authorize([AppConstants.Role.Admin]))):
     return RoleService.create_role(db, role_data)
     
 @router.get('/')

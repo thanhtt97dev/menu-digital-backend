@@ -4,5 +4,6 @@ class UnAuthorizedException(DomainException):
 
     def __init__(self, title, content):
         super().__init__(title, content)
-        self.title = title,
+        if title is not None:
+            self.title = title
         self.content = content
