@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi_versioning import VersionedFastAPI
 
 from app.common.shared.configurations.routers_config import include_routers
 from app.common.shared.configurations.middlewares_config import include_middlewares
@@ -11,6 +12,10 @@ include_routers(app)
 
 # include middlewares
 include_middlewares(app)
+
+# Apply versioning
+app = VersionedFastAPI(app, version_format="{major}", prefix_format="/v{major}")
+
 
 @app.on_event("startup")
 async def on_startup():

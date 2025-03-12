@@ -5,6 +5,8 @@ import os
 load_dotenv()
 
 class Settings(BaseSettings):
+    API_VERSION: int = os.getenv("API_VERSION")
+    
     DATABASE_URL: str = os.getenv("DATABASE_URL")
     
     JWT_VALIDATE_ISSUER: bool = os.getenv("JWT_VALIDATE_ISSUER")
