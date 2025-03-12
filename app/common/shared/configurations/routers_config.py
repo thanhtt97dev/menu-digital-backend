@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from app.routers import (
-    role_route,
-    user_route,
-    auth_route,
+from app.routers.v1 import (
+    user_route, 
+    role_route, 
+    auth_route
 )
 
 def include_routers(app: FastAPI):
