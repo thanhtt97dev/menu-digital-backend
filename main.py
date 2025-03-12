@@ -1,9 +1,11 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi_versioning import VersionedFastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.common.shared.configurations.routers_config import include_routers
 from app.common.shared.configurations.middlewares_config import include_middlewares
+from app.common.shared.configurations.enviroment_config import enviroment
 
 app = FastAPI()
 
@@ -13,8 +15,17 @@ include_routers(app)
 # include middlewares
 include_middlewares(app)
 
-# Apply versioning
-app = VersionedFastAPI(app, version_format="{major}", prefix_format="/v{major}")
+# api versioning
+app = VersionedFastAPI(app, version_format="{major}", prefix_format="/api/v{major}")
+
+# cors middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[enviroment.ALLOWED_ORIGIN],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
@@ -22,7 +33,7 @@ async def on_startup():
     pass
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8888)
+    uvicorn.run(app, host='0.0.0.0', port=8000)
     
 
 #Note: run command
