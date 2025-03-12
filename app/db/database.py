@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from app.common.shared.configurations.enviroment_config import settings
+from app.common.shared.configurations.enviroment_config import enviroment
 
 # make engine connect with MySql
-engine = create_engine(settings.DATABASE_URL)
+engine = create_engine(enviroment.DATABASE_URL)
 
 # create session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
