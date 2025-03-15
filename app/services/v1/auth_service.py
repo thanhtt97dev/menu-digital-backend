@@ -31,8 +31,8 @@ class AuthService():
             password = sign_up_data.password,
             fullname = sign_up_data.fullname,
             email = sign_up_data.email,
-            role_id = 1,
-            status = 1
+            role_id = AppConstants.Role.Employee,
+            status = AppConstants.User.Status.UnActivate
         )
         
         user = self.user_repository.add(user_db)
@@ -65,6 +65,6 @@ class AuthService():
         
         token = self.jwt_service.generate_token(payload)
         
-        return Response.success({'token': token})
+        return Response.success({'accessToken': token})
         
             
