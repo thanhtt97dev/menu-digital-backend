@@ -16,3 +16,6 @@ class UserModel(BaseModel):
     role: int
     username: str
     email: str
+    
+class SignInByGoogle(BaseModel):
+    googleToken: str
