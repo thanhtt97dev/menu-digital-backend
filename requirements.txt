@@ -23,6 +23,14 @@ cryptography  # Required for MySQL auth methods
 # Environment Variables Management
 python-dotenv
 
-
 # send mail
 fastapi-mail
+
+# api versioning
+fastapi-versioning
+
+# Oauth2 with google
+google-auth 
+google-auth-oauthlib 
+google-auth-httplib2 
+google-auth-exceptions

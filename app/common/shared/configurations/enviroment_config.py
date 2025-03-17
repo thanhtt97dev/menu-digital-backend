@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 import os
+from typing import List
 
 load_dotenv()
 
@@ -26,4 +27,6 @@ class Settings(BaseSettings):
     MAIL_SSL: bool = os.getenv("MAIL_SSL")
     USE_CREDENTIALS: bool = os.getenv("USE_CREDENTIALS")
     
-settings = Settings()
+    ALLOWED_ORIGIN: str = os.getenv("ALLOWED_ORIGIN")
+    
+enviroment = Settings()
