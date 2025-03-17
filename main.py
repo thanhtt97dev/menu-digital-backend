@@ -9,11 +9,11 @@ from app.common.shared.configurations.enviroment_config import enviroment
 
 app = FastAPI()
 
-# include routers
-include_routers(app)
-
 # include middlewares
 include_middlewares(app)
+
+# include routers
+include_routers(app)
 
 # api versioning
 app = VersionedFastAPI(app, version_format="{major}", prefix_format="/api/v{major}")
