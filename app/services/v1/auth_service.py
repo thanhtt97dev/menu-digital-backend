@@ -67,7 +67,7 @@ class AuthService():
         
         token = self.jwt_service.generate_token(payload)
         
-        return Response.success({'accessToken': token, 'userId': user.id})
+        return Response.success({'accessToken': token, 'refreshToken': '', 'userId': user.id, 'fullname': user.fullname})
         
     def sign_in_by_google(self, sign_in_by_google_data: SignInByGoogle):
         id_info = id_token.verify_oauth2_token(sign_in_by_google_data.googleToken, requests.Request())
@@ -106,4 +106,4 @@ class AuthService():
                 'email': user.email
             }
         token = self.jwt_service.generate_token(payload)
-        return Response.success({'accessToken': token, 'refreshToken': '', 'userId': user.id})
+        return Response.success({'accessToken': token, 'refreshToken': '', 'userId': user.id, 'fullname': user.fullname})
