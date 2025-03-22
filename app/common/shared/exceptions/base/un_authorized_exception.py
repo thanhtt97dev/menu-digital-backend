@@ -2,8 +2,6 @@ from app.common.shared.exceptions.base.domain_exception import DomainException
 
 class UnAuthorizedException(DomainException):
 
-    def __init__(self, title, content):
-        super().__init__(title, content)
-        if title is not None:
-            self.title = title
-        self.content = content
+    def __init__(self, message):
+        super().__init__(message)
+        self.message = message
