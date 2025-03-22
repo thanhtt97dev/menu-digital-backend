@@ -1,16 +1,11 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi_versioning import VersionedFastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
 from app.common.shared.configurations.routers_config import include_routers
 from app.common.shared.configurations.middlewares_config import include_middlewares
-from app.common.shared.configurations.enviroment_config import enviroment
 
 app = FastAPI()
-
-# include middlewares
-include_middlewares(app)
 
 # include routers
 include_routers(app)
@@ -18,15 +13,8 @@ include_routers(app)
 # api versioning
 app = VersionedFastAPI(app, version_format="{major}", prefix_format="/api/v{major}")
 
-# cors middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[enviroment.ALLOWED_ORIGIN],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+# include middlewares
+include_middlewares(app)
 
 @app.on_event("startup")
 async def on_startup():

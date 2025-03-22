@@ -31,6 +31,3 @@ fastapi-versioning
 
 # Oauth2 with google
 google-auth 
-google-auth-oauthlib 
-google-auth-httplib2 
-google-auth-exceptions
