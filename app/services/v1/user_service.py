@@ -1,20 +1,21 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import select
+
 from app.models.user import User
-from app.schemas.user_schema import UserCreate
-from passlib.context import CryptContext
+from app.repositories.user_repository import UserRepository
+from app.common.shared.responses.response import Response
+from app.schemas.user_schema import UserSchema
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto", )
+class UserService():
+    
+    def __init__(self, db: Session):
+        self.user_repository = UserRepository(db)
+        
+    def get_users(self):
+        query = select(User.id, User.username, User.email, User.fullname, User.role_id, User.status)
 
-def get_user(db: Session, user_id: int):
-    return db.query(User).filter(User.id == user_id).first()
+        users = self.user_repository.execute(query).scalars().all() 
+        
+        return Response.success(users)
 
-def get_user_by_email(db: Session, email: str):
-    return db.query(User).filter(User.email == email).first()
-
-def create_user(db: Session, user: UserCreate):
-    hashed_password = pwd_context.hash(user.password)
-    db_user = User(username=user.username, email=user.email, hashed_password=hashed_password)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+    

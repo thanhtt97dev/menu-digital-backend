@@ -13,3 +13,14 @@ class UserResponse(UserBase):
     
 class Config:
     from_attribute = True    
+    
+class UserSchema(BaseModel):
+    id: str
+    username: str
+    email: str
+    fullname: str
+    role_id: int
+    status: int
+
+    class Config:
+        from_attributes = True
