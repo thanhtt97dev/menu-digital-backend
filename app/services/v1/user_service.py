@@ -12,10 +12,10 @@ class UserService():
         self.user_repository = UserRepository(db)
         
     def get_users(self):
-        query = select(User.id, User.username, User.email, User.fullname, User.role_id, User.status)
-
-        users = self.user_repository.execute(query).scalars().all() 
+        query = select(User)
+        users = self.user_repository.execute(query).scalars().all()
         
-        return Response.success(users)
+        response = [UserSchema.from_orm(user) for user in users]
+        return Response.success(response)
 
     

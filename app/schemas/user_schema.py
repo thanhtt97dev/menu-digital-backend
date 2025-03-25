@@ -16,9 +16,9 @@ class Config:
     
 class UserSchema(BaseModel):
     id: str
-    username: str
+    username: str | None
     email: str
-    fullname: str
+    fullname: str | None
     role_id: int
     status: int
 
