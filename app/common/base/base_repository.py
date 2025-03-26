@@ -1,4 +1,4 @@
-from sqlalchemy import select, Select
+from sqlalchemy import func, select, Select
 from sqlalchemy.orm import Session, Query
 from typing import Generic, TypeVar, Type, Tuple, Any
 from app.db.database import Base
@@ -19,16 +19,33 @@ class BaseRepository(Generic[T]):
     def get_all(self) -> list[T]:
         return self.db.query(self.model).all()
     
-    def get_paginated(self, query: Query[T], page: int = AppConstants.Page.INDEX_DEFAULT, page_size: int = AppConstants.Page.SIZE_DEFAULT):
-        total_count = query.count()
+    def get_paginated(self, query: Select, page_index: int = AppConstants.Page.INDEX_DEFAULT, page_size: int = AppConstants.Page.SIZE_DEFAULT):
+        # Count total records
+        total_count_query = select(func.count()).select_from(query.subquery())
+        total_count = self.db.execute(total_count_query).scalar_one()
+        
+        # Get total page
         total_pages = ceil(total_count / page_size)
-        results = query.offset((page - 1) * page_size).limit(page_size).all()
+        
+        # Update page_index
+        if (page_index <= 0):
+            page_index = AppConstants.Page.INDEX_DEFAULT
+        
+        if (page_index > total_pages):
+            page_index = total_pages
+
+        # Apply pagination to the original query
+        paginated_query = query.offset((page_index - 1) * page_size).limit(page_size)
+        items = self.db.execute(paginated_query).scalars().all()
+        
         return {
-            "total_count": total_count,
-            "total_pages": total_pages,
-            "current_page": page,
-            "page_size": page_size,
-            "data": results
+            "totalCount": total_count,
+            "totalPages": total_pages,
+            "pageIndex": page_index,
+            "pageSize": page_size,
+            "hasNextPage": page_index * page_size < total_count,
+            "hasPreviousPage": page_index > 1,
+            "items": items
         }
     
     def add(self, db_data) -> T:

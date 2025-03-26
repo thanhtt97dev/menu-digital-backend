@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import String, cast, select, or_
 from sqlalchemy.orm import Session
 from app.models.role import Role
 from app.schemas.role_schema import RoleCreate
@@ -17,3 +17,16 @@ class UserRepository(BaseRepository[User]):
         )
         result = self.execute_scalar_one_or_none(query)
         return result
+    
+    def get_users(self, search: str):
+        query = (
+            select(User).where(
+                or_(
+                    User.fullname.like(f"%{search}%"),
+                    User.email.like(f"%{search}%"),
+                    cast(User.username, String).like(f"%{search}%")
+                )
+            )
+        )
+        return query
+    
