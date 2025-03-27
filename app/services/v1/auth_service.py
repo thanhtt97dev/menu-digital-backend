@@ -67,7 +67,7 @@ class AuthService():
         
         token = self.jwt_service.generate_token(payload)
         
-        return Response.success({'accessToken': token, 'userId': user.id})
+        return Response.success({'accessToken': token, 'refreshToken': '', 'userId': user.id, 'fullname': user.fullname})
         
     def sign_in_by_google(self, sign_in_by_google_data: SignInByGoogle):
         id_info = id_token.verify_oauth2_token(sign_in_by_google_data.googleToken, requests.Request())
@@ -86,29 +86,24 @@ class AuthService():
             if user.status == AppConstants.User.Status.Deactivate:
                 raise UnAuthorizedException('Your account is banned!')
             else :
-                payload = {
-                    'id' : user.id,
-                    'role': user.role_id,
-                    'username': user.username,
-                    'email': user.email
-                }
-                token = self.jwt_service.generate_token(payload)
-                return Response.success({'accessToken': token, 'userId': user.id})
-                
+                return self.sign_in_response(user)
         else:
             user_db = User(
                 id = str(uuid.uuid4()),
                 fullname = user_info.fullname,
                 email = user_info.email,
                 role_id = AppConstants.Role.Employee,
-                status = AppConstants.User.Status.UnActivate
+                status = AppConstants.User.Status.Activate
             )
             user = self.user_repository.add(user_db)
-            payload = {
-                    'id' : user.id,
-                    'role': user.role_id,
-                    'username': user.username,
-                    'email': user.email
-                }
-            token = self.jwt_service.generate_token(payload)
-            return Response.success({'accessToken': token, 'userId': user.id})
+            return self.sign_in_response(user)
+    
+    def sign_in_response(self, user: User):
+        payload = {
+                'id' : user.id,
+                'role': user.role_id,
+                'username': user.username,
+                'email': user.email
+            }
+        token = self.jwt_service.generate_token(payload)
+        return Response.success({'accessToken': token, 'refreshToken': '', 'userId': user.id, 'fullname': user.fullname})
