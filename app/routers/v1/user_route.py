@@ -5,7 +5,7 @@ from fastapi_versioning import version
 
 from app.db.database import get_db
 from app.services.v1.user_service import UserService
-from app.schemas.user_schema import UserCreate, UserResponse
+from app.schemas.user_schema import UserCreate, UserResponse, UserUpdateStatus
 from app.common.shared.constants.app_constant import AppConstants
 from app.common.base.authorize import authorize
 from app.common.shared.configurations.enviroment_config import enviroment
@@ -22,3 +22,13 @@ def get_users(
     user = Depends(authorize([AppConstants.Role.Admin]))
 ):
     return UserService(db).get_users(search, page_index, page_size)
+
+@router.put("/status/{id}")
+@version(enviroment.API_VERSION)
+def update_user_status(
+    id: str,
+    user_update: UserUpdateStatus,
+    db: Session = Depends(get_db),
+    user = Depends(authorize([AppConstants.Role.Admin]))
+):
+    return UserService(db).update_user_status(id, user_update)

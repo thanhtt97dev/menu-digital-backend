@@ -58,16 +58,7 @@ class AuthService():
         if user.status == AppConstants.User.Status.Deactivate:
             raise UnAuthorizedException(title=None, content='Your account has ben banned!')
         
-        payload = {
-                'id' : user.id,
-                'role': user.role_id,
-                'username': user.username,
-                'email': user.email
-            }
-        
-        token = self.jwt_service.generate_token(payload)
-        
-        return Response.success({'accessToken': token, 'refreshToken': '', 'userId': user.id, 'fullname': user.fullname})
+        return self.sign_in_response(user)
         
     def sign_in_by_google(self, sign_in_by_google_data: SignInByGoogle):
         id_info = id_token.verify_oauth2_token(sign_in_by_google_data.googleToken, requests.Request())
@@ -106,4 +97,4 @@ class AuthService():
                 'email': user.email
             }
         token = self.jwt_service.generate_token(payload)
-        return Response.success({'accessToken': token, 'refreshToken': '', 'userId': user.id, 'fullname': user.fullname})
+        return Response.success({'accessToken': token, 'refreshToken': '', 'userId': user.id, 'fullname': user.fullname, 'userId': user.role_id})
