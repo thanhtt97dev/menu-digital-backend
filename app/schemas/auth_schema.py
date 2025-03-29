@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
+from typing import Optional
 
 class SignIn(BaseModel):
     username: str
@@ -12,10 +13,10 @@ class SignUp(BaseModel):
     
     
 class UserModel(BaseModel):
-    id: str
-    role: int
-    username: str
-    email: str
+    id: Optional[str] = None
+    role: Optional[int] = None
+    username: Optional[str] = None
+    email: Optional[str] = None
     
 class SignInByGoogle(BaseModel):
     googleToken: str

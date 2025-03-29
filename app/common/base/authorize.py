@@ -14,7 +14,7 @@ def authorize(required_roles: list[str] = None):
         user_data = jwtService.verify_token(token)
         user = UserModel(**user_data)
         if required_roles and user.role not in required_roles:
-            raise UnAuthorizedException('Un authorized', 'Access denied')
+            raise UnAuthorizedException('Access denied')
         return user
     
     return verify_token
