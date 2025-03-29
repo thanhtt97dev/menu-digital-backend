@@ -4,7 +4,7 @@ from sqlalchemy import select, or_
 from app.models.user import User
 from app.repositories.user_repository import UserRepository
 from app.common.shared.responses.response import Response
-from app.schemas.user_schema import UserSchema
+from app.schemas.user_schema import UserSchema, UserUpdateStatus
 
 class UserService():
     
@@ -23,5 +23,9 @@ class UserService():
         }
         
         return Response.success(results)
+    
+    def update_user_status(self,user_id: str, user_data: UserUpdateStatus):
+        self.user_repository.update(user_id, user_data.__dict__)
+        return Response.success()
 
     

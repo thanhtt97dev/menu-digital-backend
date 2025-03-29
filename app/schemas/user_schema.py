@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel, EmailStr
 
 
@@ -15,12 +16,16 @@ class Config:
     from_attribute = True    
     
 class UserSchema(BaseModel):
-    id: str
-    username: str | None
-    email: str
-    fullname: str | None
-    role_id: int
-    status: int
+    id: Optional[str]
+    username: Optional[str]
+    email: Optional[str]
+    fullname: Optional[str]
+    status: Optional[int]
+    roleId: Optional[int]
+    roleName: Optional[str]
 
     class Config:
         from_attributes = True
+        
+class UserUpdateStatus(BaseModel):
+    status: int = 1
