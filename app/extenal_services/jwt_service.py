@@ -27,9 +27,9 @@ class JwtService(JwtServiceInterface):
             )
             return payload
         except jwt.ExpiredSignatureError:
-            raise UnAuthenticationException('Un authentication', 'Token exprired!')
+            raise UnAuthenticationException('Token exprired!')
         except jwt.InvalidTokenError:
-            raise UnAuthenticationException('Un authentication', 'Token invalid!')
+            raise UnAuthenticationException('Token invalid!')
         
 def get_jwt_service():
     return JwtService()
