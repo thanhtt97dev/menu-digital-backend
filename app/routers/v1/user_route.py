@@ -6,6 +6,7 @@ from app.db.database import get_db
 from app.services.v1.user_service import UserService
 from app.schemas.user_schema import UserCreate, UserResponse
 from app.common.shared.constants.app_constant import AppConstants
+from app.common.base.authorize import authorize
 
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -15,6 +16,7 @@ def get_users(
     search: Optional[str] = '' , 
     page_index: int = AppConstants.Page.INDEX_DEFAULT, 
     page_size: int  = AppConstants.Page.SIZE_DEFAULT,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    user = Depends(authorize([AppConstants.Role.Admin]))
 ):
     return UserService(db).get_users(search, page_index, page_size)

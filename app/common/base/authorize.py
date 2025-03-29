@@ -7,7 +7,7 @@ from app.extenal_services.jwt_service import JwtService, get_jwt_service
 from app.common.shared.exceptions.base.un_authorized_exception import UnAuthorizedException
 from app.schemas.auth_schema import UserModel
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/signin")
 
 def authorize(required_roles: list[str] = None):
     def verify_token(token: str = Depends(oauth2_scheme), jwtService: JwtService = Depends(get_jwt_service)):
