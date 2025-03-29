@@ -20,7 +20,17 @@ class UserRepository(BaseRepository[User]):
     
     def get_users(self, search: str):
         query = (
-            select(User).where(
+            select(
+                User.id,
+                User.username,
+                User.email,
+                User.fullname,
+                User.status,
+                Role.id.label('roleId'),
+                Role.name.label("roleName")
+            )
+            .join(Role, User.role_id == Role.id)
+            .where(
                 or_(
                     User.fullname.like(f"%{search}%"),
                     User.email.like(f"%{search}%"),

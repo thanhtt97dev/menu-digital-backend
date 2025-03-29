@@ -36,7 +36,7 @@ class BaseRepository(Generic[T]):
 
         # Apply pagination to the original query
         paginated_query = query.offset((page_index - 1) * page_size).limit(page_size)
-        items = self.db.execute(paginated_query).scalars().all()
+        items = self.db.execute(paginated_query).all()
         
         return {
             "totalCount": total_count,
@@ -54,10 +54,14 @@ class BaseRepository(Generic[T]):
         self.db.refresh(db_data)
         return db_data
     
-    def update(self, db_obj: T, update_data: dict) -> T:
+    def update(self, obj_id: int, update_data: dict) -> T:
+        db_obj = self.get_by_id(obj_id)
+        if not db_obj:
+            return None
+
         for key, value in update_data.items():
             setattr(db_obj, key, value)
-            
+
         self.db.commit()
         self.db.refresh(db_obj)
         return db_obj
