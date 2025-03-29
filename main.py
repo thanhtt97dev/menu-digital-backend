@@ -7,21 +7,30 @@ from app.common.shared.configurations.middlewares_config import include_middlewa
 
 app = FastAPI()
 
-# include routers
+# 1. Include routers
 include_routers(app)
 
-# api versioning
-app = VersionedFastAPI(app, version_format="{major}", prefix_format="/api/v{major}")
-
-# include middlewares
+# 3. Include middlewares
 include_middlewares(app)
+
+
+# 2. Api versioning
+# 2.1. Enable all version
+versioned_app = VersionedFastAPI(app, version_format="{major}", prefix_format="/api/v{major}")
+# 2.2. Enable lastest version
+# app = VersionedFastAPI(app, enable_latest=True)
+# 2.3. Enable specefic version
+# app = VersionedFastAPI(app, version_format="1", prefix_format="/api/v1")
+
+versioned_app.middleware_stack = app.middleware_stack
 
 @app.on_event("startup")
 async def on_startup():
     pass
 
+# [feature/00004] - fastapi_versioning lib is not support using custom middleware -> ignor using api versionning
 if __name__ == '__main__':
-    uvicorn.run("main:app", host='0.0.0.0', port=8000)
+    uvicorn.run(app, host='0.0.0.0', port=8000)
     # uvicorn.run("main:app", host='0.0.0.0', port=8000, reload=True)
     
 
