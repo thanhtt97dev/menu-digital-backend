@@ -30,4 +30,5 @@ fastapi-mail
 fastapi-versioning
 
 # Oauth2 with google
+requests
 google-auth 
