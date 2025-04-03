@@ -18,7 +18,7 @@ class UserRepository(BaseRepository[User]):
         result = self.execute_scalar_one_or_none(query)
         return result
     
-    def get_users(self, search: str):
+    def get_users(self, username: str = '', fullname: str = '', email: str = '', role_id: int = 0, status: int = 0):
         query = (
             select(
                 User.id,
@@ -31,11 +31,11 @@ class UserRepository(BaseRepository[User]):
             )
             .join(Role, User.role_id == Role.id)
             .where(
-                or_(
-                    User.fullname.like(f"%{search}%"),
-                    User.email.like(f"%{search}%"),
-                    cast(User.username, String).like(f"%{search}%")
-                )
+                (User.username.contains(username) if username != '' else True),
+                User.fullname.contains(fullname),
+                User.email.contains(email),
+                (User.role_id == role_id if role_id != 0 else True),
+                (User.status == status if status != 0 else True)
             )
         )
         return query

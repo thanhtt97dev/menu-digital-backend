@@ -13,8 +13,8 @@ class BaseRepository(Generic[T]):
         self.model = model
         self.db = db
         
-    def get_by_id(seft, id: any) -> T | None:
-        return seft.db.query(seft.model).filter(seft.model.id == id).first()
+    def get_by_id(self, id: any) -> T | None:
+        return self.db.query(self.model).filter(self.model.id == id).first()
     
     def get_all(self) -> list[T]:
         return self.db.query(self.model).all()
@@ -28,14 +28,15 @@ class BaseRepository(Generic[T]):
         total_pages = ceil(total_count / page_size)
         
         # Update page_index
-        if (page_index <= 0):
-            page_index = AppConstants.Page.INDEX_DEFAULT
-        
         if (page_index > total_pages):
             page_index = total_pages
 
+        if (page_index <= 0):
+            page_index = AppConstants.Page.INDEX_DEFAULT
+        
         # Apply pagination to the original query
         paginated_query = query.offset((page_index - 1) * page_size).limit(page_size)
+        # paginated_query = query
         items = self.db.execute(paginated_query).all()
         
         return {
