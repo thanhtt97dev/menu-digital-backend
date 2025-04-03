@@ -15,13 +15,17 @@ router = APIRouter(prefix="/users", tags=["Users"])
 @router.get("")
 @version(enviroment.API_VERSION)
 def get_users(
-    search: Optional[str] = '' , 
+    username: Optional[str] = '' , 
+    fullname: Optional[str] = '' , 
+    email: Optional[str] = '' , 
+    role_id: Optional[int] = 0,
+    status_id: Optional[int] = 0,
     page_index: int = AppConstants.Page.INDEX_DEFAULT, 
     page_size: int  = AppConstants.Page.SIZE_DEFAULT,
     db: Session = Depends(get_db),
     user = Depends(authorize([AppConstants.Role.Admin]))
 ):
-    return UserService(db).get_users(search, page_index, page_size)
+    return UserService(db).get_users(username, fullname, email, role_id, status_id, page_index, page_size)
 
 @router.put("/status/{id}")
 @version(enviroment.API_VERSION)
