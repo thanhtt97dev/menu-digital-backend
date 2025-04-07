@@ -18,14 +18,14 @@ def get_users(
     username: Optional[str] = '' , 
     fullname: Optional[str] = '' , 
     email: Optional[str] = '' , 
-    role_id: Optional[int] = 0,
-    status_id: Optional[int] = 0,
-    page_index: int = AppConstants.Page.INDEX_DEFAULT, 
-    page_size: int  = AppConstants.Page.SIZE_DEFAULT,
+    roleId: Optional[int] = 0,
+    statusId: Optional[int] = 0,
+    pageIndex: Optional[int] = AppConstants.Page.INDEX_DEFAULT, 
+    pageSize: Optional[int]  = AppConstants.Page.SIZE_DEFAULT,
     db: Session = Depends(get_db),
     user = Depends(authorize([AppConstants.Role.Admin]))
 ):
-    return UserService(db).get_users(username, fullname, email, role_id, status_id, page_index, page_size)
+    return UserService(db).get_users(username, fullname, email, roleId, statusId, pageIndex, pageSize)
 
 @router.put("/status/{id}")
 @version(enviroment.API_VERSION)
